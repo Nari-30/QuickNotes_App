@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8080/api";
+const API_URL = "/api";
 
 let editMode = false;
 let editingNoteId = null;
@@ -6,46 +6,60 @@ let editingNoteId = null;
 // SIGNUP
 async function signup() {
 
-    const username = document.getElementById("signupUsername").value.trim();
-    const password = document.getElementById("signupPassword").value.trim();
+    const username =
+        document.getElementById("signupUsername").value.trim();
+
+    const password =
+        document.getElementById("signupPassword").value.trim();
 
     if (!username || !password) {
         alert("Please fill all fields");
         return;
     }
 
-    const response = await fetch(`${API_URL}/auth/register`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            username,
-            password
-        })
-    });
+    try {
 
-    const data = await response.text();
+        const response = await fetch(`${API_URL}/auth/register`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                username,
+                password
+            })
+        });
 
-    alert(data);
+        const data = await response.text();
 
-    if (
-        data.toLowerCase().includes("successfully") ||
-        data.toLowerCase().includes("already exists")
-    ) {
+        alert(data);
 
-        setTimeout(() => {
-            window.location.href = "index.html";
-        }, 1000);
+        if (
+            response.ok ||
+            data.toLowerCase().includes("success")
+        ) {
+
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 1000);
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("Signup failed");
     }
 }
 
 // LOGIN
 async function login() {
 
-    const username = document.getElementById("loginUsername").value.trim();
+    const username =
+        document.getElementById("loginUsername").value.trim();
 
-    const password = document.getElementById("loginPassword").value.trim();
+    const password =
+        document.getElementById("loginPassword").value.trim();
 
     if (!username || !password) {
 
@@ -54,41 +68,46 @@ async function login() {
         return;
     }
 
-    const response = await fetch(`${API_URL}/auth/login`, {
+    try {
 
-        method: "POST",
+        const response = await fetch(`${API_URL}/auth/login`, {
 
-        headers: {
-            "Content-Type": "application/json"
-        },
+            method: "POST",
 
-        body: JSON.stringify({
-            username,
-            password
-        })
-    });
+            headers: {
+                "Content-Type": "application/json"
+            },
 
-    const data = await response.text();
+            body: JSON.stringify({
+                username,
+                password
+            })
+        });
 
-    // If backend returns errors
-    if (
-        data.includes("Invalid") ||
-        data.includes("not found")
-    ) {
+        const data = await response.text();
 
-        alert(data);
+        if (!response.ok) {
 
-        return;
+            alert(data);
+
+            return;
+        }
+
+        // Store JWT token
+        localStorage.setItem("token", data);
+
+        // Store username
+        localStorage.setItem("username", username);
+
+        // Redirect
+        window.location.href = "dashboard.html";
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("Login failed");
     }
-
-    // Store JWT token
-    localStorage.setItem("token", data);
-
-    // Store username separately
-    localStorage.setItem("username", username);
-
-    // Redirect
-    window.location.href = "dashboard.html";
 }
 
 // LOAD NOTES
@@ -114,7 +133,6 @@ async function loadNotes() {
             }
         });
 
-        // Unauthorized
         if (response.status === 401) {
 
             alert("Session expired. Please login again.");
@@ -178,59 +196,87 @@ async function loadNotes() {
     } catch (error) {
 
         console.error(error);
+
+        alert("Failed to load notes");
     }
 }
+
 // ADD / UPDATE NOTE
 async function addNote() {
 
     const username = localStorage.getItem("username");
 
-    const title = document.getElementById("title").value.trim();
-    const content = document.getElementById("content").value.trim();
+    const title =
+        document.getElementById("title").value.trim();
+
+    const content =
+        document.getElementById("content").value.trim();
+
+    const token = localStorage.getItem("token");
 
     if (!title || !content) {
+
         alert("Please fill all fields");
+
         return;
     }
 
-    if (editMode) {
+    try {
 
-        await fetch(`${API_URL}/notes/${editingNoteId}`, {
-            method: "PUT",
-            headers: {
-    "Content-Type": "application/json",
-    "Authorization": `Bearer ${localStorage.getItem("token")}`
-},
-            body: JSON.stringify({
-                title,
-                content
-            })
-        });
+        if (editMode) {
 
-        editMode = false;
-        editingNoteId = null;
+            await fetch(`${API_URL}/notes/${editingNoteId}`, {
 
-        document.getElementById("mainBtn").innerText = "+ Add Note";
+                method: "PUT",
 
-    } else {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
 
-        await fetch(`${API_URL}/notes/${username}`, {
-            method: "POST",
-            headers: {
-    "Content-Type": "application/json",
-    "Authorization": `Bearer ${localStorage.getItem("token")}`
-},
-            body: JSON.stringify({
-                title,
-                content
-            })
-        });
+                body: JSON.stringify({
+                    title,
+                    content
+                })
+            });
+
+            editMode = false;
+
+            editingNoteId = null;
+
+            document.getElementById("mainBtn").innerText =
+                "+ Add Note";
+
+        } else {
+
+            await fetch(`${API_URL}/notes/${username}`, {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+
+                body: JSON.stringify({
+                    title,
+                    content
+                })
+            });
+        }
+
+        document.getElementById("title").value = "";
+
+        document.getElementById("content").value = "";
+
+        loadNotes();
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("Failed to save note");
     }
-
-    document.getElementById("title").value = "";
-    document.getElementById("content").value = "";
-
-    loadNotes();
 }
 
 // EDIT NOTE
@@ -244,7 +290,8 @@ function editNote(id, title, content) {
 
     editingNoteId = id;
 
-    document.getElementById("mainBtn").innerText = "Update Note";
+    document.getElementById("mainBtn").innerText =
+        "Update Note";
 
     window.scrollTo({
         top: 0,
@@ -255,28 +302,46 @@ function editNote(id, title, content) {
 // DELETE NOTE
 async function deleteNote(id) {
 
-    const confirmDelete = confirm("Delete this note?");
+    const confirmDelete =
+        confirm("Delete this note?");
 
     if (!confirmDelete) return;
 
-    await fetch(`${API_URL}/notes/${id}`, {
-        method: "DELETE",
-        headers: {
-            "Authorization":
-                `Bearer ${localStorage.getItem("token")}`
-        }
-    });
-    loadNotes();
+    try {
+
+        await fetch(`${API_URL}/notes/${id}`, {
+
+            method: "DELETE",
+
+            headers: {
+                "Authorization":
+                    `Bearer ${localStorage.getItem("token")}`
+            }
+        });
+
+        loadNotes();
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("Delete failed");
+    }
 }
 
 // LOGOUT
 function logout() {
+
     localStorage.removeItem("username");
+
     localStorage.removeItem("token");
+
     window.location.href = "index.html";
 }
 
 // AUTO LOAD NOTES
-if (window.location.pathname.includes("dashboard.html")) {
+if (
+    window.location.pathname.includes("dashboard.html")
+) {
     loadNotes();
 }
