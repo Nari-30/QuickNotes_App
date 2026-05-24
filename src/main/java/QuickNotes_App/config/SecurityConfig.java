@@ -42,7 +42,7 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(auth -> auth
 
-                        // Public APIs
+                        // Public files/pages
                         .requestMatchers(
                                 "/",
                                 "/index.html",
@@ -50,10 +50,20 @@ public class SecurityConfig {
                                 "/dashboard.html",
                                 "/style.css",
                                 "/script.js",
+                                "/favicon.ico"
+                        ).permitAll()
+
+                        // Public auth APIs
+                        .requestMatchers(
                                 "/api/auth/**"
                         ).permitAll()
 
-                        // Secure all other APIs
+                        // Allow H2/Static if needed
+                        .requestMatchers(
+                                "/error"
+                        ).permitAll()
+
+                        // All remaining requests secured
                         .anyRequest().authenticated()
                 )
 
