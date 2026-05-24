@@ -1,0 +1,255 @@
+:root {
+    --bg-color: #1a1a2e;
+    --card-bg: #16213e;
+    --accent: #e94560;
+    --update-color: #00bcd4;
+    --text: #ffffff;
+    --secondary-text: #b2b2b2;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text);
+    margin: 0;
+    padding: 20px;
+}
+
+/* HEADINGS */
+
+h1 {
+    color: var(--accent);
+    margin: 0;
+}
+
+h2 {
+    margin-bottom: 10px;
+}
+
+/* AUTH */
+
+.auth-container {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+    margin: 80px auto;
+}
+
+.auth-container p {
+    text-align: center;
+    color: var(--secondary-text);
+}
+
+.auth-container a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* INPUTS */
+
+input,
+textarea {
+    background: #0f3460;
+    border: 1px solid #0f3460;
+    color: white;
+    padding: 14px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-family: inherit;
+    outline: none;
+    transition: 0.3s;
+    resize: vertical;
+}
+
+input:focus,
+textarea:focus {
+    border-color: var(--accent);
+}
+
+/* BUTTONS */
+
+button {
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 17px;
+    transition: transform 0.2s, opacity 0.3s;
+}
+
+button:hover {
+    transform: scale(1.02);
+    opacity: 0.92;
+}
+
+/* DASHBOARD */
+
+.container {
+    width: 100%;
+    max-width: 1400px;
+    margin: auto;
+}
+
+/* TOP BAR */
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.top-bar h1 {
+    font-size: 3rem;
+}
+
+/* NOTE FORM */
+
+.note-form {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin: 0 auto 50px auto;
+    width: 100%;
+    max-width: 700px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+}
+
+.note-form textarea {
+    min-height: 120px;
+}
+
+.note-form button {
+    width: 100%;
+}
+
+/* NOTES GRID */
+
+#notesContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+/* NOTE CARD */
+
+.note-card {
+    background-color: #e9dfb9;
+    color: #333;
+    padding: 28px;
+    border-radius: 4px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    position: relative;
+    transition: transform 0.2s;
+    border-top: 5px solid #ffcc00;
+    min-height: 220px;
+}
+
+.note-card:hover {
+    transform: translateY(-5px);
+}
+
+/* NOTE TITLE */
+
+.note-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #1e293b;
+    padding-right: 80px;
+}
+
+/* NOTE CONTENT */
+
+.note-content {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #444;
+    white-space: pre-wrap;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* CARD ACTIONS */
+
+.card-actions {
+    position: absolute;
+    top: 18px;
+    right: 15px;
+    display: flex;
+    gap: 8px;
+}
+
+/* ICON BUTTONS */
+
+.icon-btn {
+    border: 1px solid #bbb;
+    background: #f4f1e6;
+    cursor: pointer;
+    padding: 8px 10px;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: 0.2s;
+}
+
+.icon-btn:hover {
+    transform: scale(1.08);
+}
+
+.edit-btn {
+    color: #f59e0b;
+}
+
+.delete-btn {
+    color: #ef4444;
+}
+
+/* EMPTY STATE */
+
+.empty-state {
+    text-align: center;
+    color: var(--secondary-text);
+    margin-top: 50px;
+    font-style: italic;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+
+    .top-bar h1 {
+        font-size: 2rem;
+    }
+
+    .note-form {
+        padding: 20px;
+    }
+
+    #notesContainer {
+        grid-template-columns: 1fr;
+    }
+}
+
+.note-title,
+.note-content {
+    text-align: left;
+}
+
+.note-card * {
+    text-align: left;
+}
