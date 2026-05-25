@@ -59,9 +59,14 @@ public class NoteController {
 
     @DeleteMapping("/{id}")
     public String deleteNote(@PathVariable Long id) {
-
+    
+        if (!noteRepository.existsById(id)) {
+    
+            return "Note not found!";
+        }
+    
         noteRepository.deleteById(id);
-
+    
         return "Note deleted successfully!";
     }
     @GetMapping("/search/{username}")
