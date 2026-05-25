@@ -28,25 +28,25 @@ public class Note {
 
     // AUTO CREATE TIME
     @PrePersist
-    protected void onCreate() {
-    
-        createdAt = LocalDateTime.now(
-                ZoneId.of("Asia/Kolkata")
-        );
-    
-        updatedAt = LocalDateTime.now(
-                ZoneId.of("Asia/Kolkata")
-        );
-    }
-
-    // AUTO UPDATE TIME
-    @PreUpdate
-    protected void onUpdate() {
-    
-        updatedAt = LocalDateTime.now(
-                ZoneId.of("Asia/Kolkata")
-        );
-    }
+        protected void onCreate() {
+        
+            createdAt = java.time.ZonedDateTime
+                    .now(java.time.ZoneId.of("Asia/Kolkata"))
+                    .toLocalDateTime();
+        
+            updatedAt = java.time.ZonedDateTime
+                    .now(java.time.ZoneId.of("Asia/Kolkata"))
+                    .toLocalDateTime();
+        }
+        
+        @PreUpdate
+        protected void onUpdate() {
+        
+            updatedAt = java.time.ZonedDateTime
+                    .now(java.time.ZoneId.of("Asia/Kolkata"))
+                    .toLocalDateTime();
+        }
+            
 
     public Note() {
     }
