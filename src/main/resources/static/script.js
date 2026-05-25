@@ -186,6 +186,20 @@ async function loadNotes() {
                     <div class="note-title">${note.title}</div>
 
                     <div class="note-content">${note.content}</div>
+                    
+                    <div class="note-time">
+                    
+                        Created:
+                        ${new Date(note.createdAt).toLocaleString()}
+                    
+                    </div>
+                    
+                    <div class="note-time">
+                    
+                        Updated:
+                        ${new Date(note.updatedAt).toLocaleString()}
+                    
+                    </div>
 
                 </div>
             `;
@@ -275,6 +289,20 @@ async function searchNotes() {
                     <div class="note-title">${note.title}</div>
 
                     <div class="note-content">${note.content}</div>
+                    
+                    <div class="note-time">
+                    
+                        Created:
+                        ${new Date(note.createdAt).toLocaleString()}
+                    
+                    </div>
+                    
+                    <div class="note-time">
+                    
+                        Updated:
+                        ${new Date(note.updatedAt).toLocaleString()}
+                    
+                    </div>
 
                 </div>
             `;
