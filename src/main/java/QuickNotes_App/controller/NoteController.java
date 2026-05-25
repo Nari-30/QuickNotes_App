@@ -64,4 +64,20 @@ public class NoteController {
 
         return "Note deleted successfully!";
     }
+    @GetMapping("/search/{username}")
+        public List<Note> searchNotes(
+        
+                @PathVariable String username,
+        
+                @RequestParam String keyword
+        ) {
+        
+            return noteRepository
+                    .findByUsernameAndTitleContainingIgnoreCaseOrUsernameAndContentContainingIgnoreCase(
+                            username,
+                            keyword,
+                            username,
+                            keyword
+                    );
+        }
 }
