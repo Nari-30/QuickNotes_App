@@ -256,26 +256,20 @@ button:hover {
 
 .search-box {
 
-    width: 54%;
-
-    margin: 20px auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
 }
 
 .search-box input {
-
-    width: 100%;
-
+    width: 78%;
     padding: 18px;
-
     border-radius: 12px;
-
     border: none;
-
     background: #123b73;
-
     color: white;
-
     font-size: 18px;
-
     outline: none;
+    box-sizing: border-box;
 }
