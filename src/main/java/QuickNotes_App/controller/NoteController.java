@@ -72,9 +72,7 @@ public class NoteController {
             @RequestParam String keyword
     ) {
     
-        User user = userRepository
-                .findByUsername(username)
-                .orElseThrow();
+        User user = userRepository.findByUsername(username);
     
         return noteRepository
                 .findByUserAndTitleContainingIgnoreCaseOrUserAndContentContainingIgnoreCase(
