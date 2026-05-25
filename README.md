@@ -177,3 +177,26 @@ GET /api/notes/search/narendhra?keyword=spring
 ```http
 Authorization: Bearer <jwt_token>
 ```
+
+## Security & System Design
+
+### JWT Authentication
+Secure API authentication using JSON Web Tokens (JWT) with Spring Security. Protected endpoints require a valid JWT token in the Authorization header.
+### Private User Dashboards
+Each user can securely access and manage only their own personal notes. Note ownership is maintained using database relationships between users and notes.
+### Search Notes System
+Users can instantly search notes by title or content using dynamic backend filtering and real-time frontend updates.
+### Timestamp Management
+Automatic note creation and update timestamps are maintained using JPA lifecycle methods with Indian Standard Time (IST) support.
+### Secure Password Handling
+User passwords are securely encrypted using BCrypt password hashing with Spring Security authentication.
+### Protected REST APIs
+All sensitive note management APIs are protected using JWT authorization and Spring Security filters.
+### Database Persistence
+All users, notes, timestamps, and authentication data are persistently stored using MySQL and Hibernate/JPA.
+### Responsive Modern UI
+The frontend dashboard is fully responsive and built using HTML, CSS, and JavaScript for seamless usability across devices.
+### User-Specific Data Isolation
+Every authenticated user can access only their own notes securely, preventing unauthorized data access.
+### Cloud Deployment Architecture
+The application is fully deployed on Railway cloud infrastructure with integrated MySQL database hosting.
