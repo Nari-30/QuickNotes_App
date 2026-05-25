@@ -1,5 +1,8 @@
 package QuickNotes_App.model;
+
 import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 
 @Entity
 public class Note {
@@ -10,20 +13,42 @@ public class Note {
 
     private String title;
 
+    @Column(length = 5000)
     private String content;
+
+    // CREATED TIME
+    private LocalDateTime createdAt;
+
+    // UPDATED TIME
+    private LocalDateTime updatedAt;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Note() {
+    // AUTO CREATE TIME
+    @PrePersist
+    protected void onCreate() {
+    
+        createdAt = LocalDateTime.now(
+                ZoneId.of("Asia/Kolkata")
+        );
+    
+        updatedAt = LocalDateTime.now(
+                ZoneId.of("Asia/Kolkata")
+        );
     }
 
-    public Note(Long id, String title, String content, User user) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-        this.user = user;
+    // AUTO UPDATE TIME
+    @PreUpdate
+    protected void onUpdate() {
+    
+        updatedAt = LocalDateTime.now(
+                ZoneId.of("Asia/Kolkata")
+        );
+    }
+
+    public Note() {
     }
 
     public Long getId() {
@@ -56,5 +81,21 @@ public class Note {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }
