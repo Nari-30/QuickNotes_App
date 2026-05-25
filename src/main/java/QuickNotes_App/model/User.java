@@ -3,7 +3,7 @@ package QuickNotes_App.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "users")
+@Table(name = "quicknotes_notes")
 public class User {
 
     @Id
