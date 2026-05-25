@@ -1,8 +1,7 @@
 # QuickNotes App
 
 A secure and modern full-stack notes management application with JWT authentication, real-time note search, user-specific dashboards, and cloud deployment support. Built with Spring Boot and MySQL, featuring secure APIs, responsive UI, and timestamp-based note management.
-### Live:
-[QuickNotes App](https://quicknotesapp-production.up.railway.app)
+### Live: [QuickNotes App](https://quicknotesapp-production.up.railway.app)
 
 ### Stack:
 Java 17 · Spring Boot · Spring Security · JWT · MySQL · Hibernate/JPA · HTML · CSS · JavaScript · Railway
@@ -200,3 +199,113 @@ The frontend dashboard is fully responsive and built using HTML, CSS, and JavaSc
 Every authenticated user can access only their own notes securely, preventing unauthorized data access.
 ### Cloud Deployment Architecture
 The application is fully deployed on Railway cloud infrastructure with integrated MySQL database hosting.
+
+## Running Locally
+
+Make sure you have the following installed:
+
+- Java 17
+- MySQL
+- Maven
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/your-username/QuickNotes_App.git
+
+cd QuickNotes_App
+```
+
+---
+
+## Create MySQL Database
+
+```sql
+CREATE DATABASE quicknotes_db;
+```
+
+---
+
+## Configure Database
+
+Update your `application.properties` file:
+
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/quicknotes_db
+
+spring.datasource.username=root
+
+spring.datasource.password=your_password
+
+spring.jpa.hibernate.ddl-auto=update
+```
+
+---
+
+## Run the Application
+
+```bash
+mvn spring-boot:run
+```
+
+---
+
+## Access Application
+
+```text
+Frontend:
+http://localhost:8080
+
+Backend API:
+http://localhost:8080/api
+```
+
+## Test API
+
+```bash
+curl -X POST http://localhost:8080/api/notes/narendhra \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer <jwt_token>" \
+-d '{
+  "title":"Spring Boot Notes",
+  "content":"Learn JWT authentication and Spring Security."
+}'
+```
+
+---
+
+## Environment Variables
+
+| Variable | Used For |
+|---|---|
+| MYSQLHOST | MySQL database host |
+| MYSQLPORT | MySQL database port |
+| MYSQLDATABASE | MySQL database name |
+| MYSQLUSER | MySQL database username |
+| MYSQLPASSWORD | MySQL database password |
+| JWT_SECRET | Secret key for JWT token generation |
+| PORT | Spring Boot server port |
+| SPRING_JPA_HIBERNATE_DDL_AUTO | Hibernate database update strategy |
+
+---
+
+## Local Storage Usage
+
+JWT authentication tokens are securely stored in browser localStorage after login.
+
+If localStorage is cleared:
+
+- User will be logged out
+- Dashboard access will require login again
+- Notes data will remain safely stored in MySQL database
+- JWT token session will expire
+
+---
+
+## Deployment
+The application is deployed using Railway cloud platform.
+### Live URL: [QuickNotes App](https://quicknotesapp-production.up.railway.app)
+
+## Author
+**Sadi Narendhra**
+Java Full Stack Developer | Spring Boot & Web Development Enthusiast
