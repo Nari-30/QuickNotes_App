@@ -200,7 +200,93 @@ async function loadNotes() {
         alert("Failed to load notes");
     }
 }
+// SEARCH NOTES
+async function searchNotes() {
 
+    const username = localStorage.getItem("username");
+
+    const token = localStorage.getItem("token");
+
+    const keyword =
+        document.getElementById("searchInput").value.trim();
+
+    // If empty → load all notes
+    if (keyword === "") {
+
+        loadNotes();
+
+        return;
+    }
+
+    try {
+
+        const response = await fetch(
+
+            `${API_URL}/notes/search/${username}?keyword=${keyword}`,
+
+            {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            }
+        );
+
+        const notes = await response.json();
+
+        const notesContainer =
+            document.getElementById("notesContainer");
+
+        if (notes.length === 0) {
+
+            notesContainer.innerHTML = `
+                <div class="empty-state">
+                    No matching notes found
+                </div>
+            `;
+
+            return;
+        }
+
+        let notesHTML = "";
+
+        notes.forEach(note => {
+
+            notesHTML += `
+                <div class="note-card">
+
+                    <div class="card-actions">
+
+                        <button class="icon-btn edit-btn"
+                            onclick='editNote(
+                                ${note.id},
+                                ${JSON.stringify(note.title)},
+                                ${JSON.stringify(note.content)}
+                            )'>
+                            📝
+                        </button>
+
+                        <button class="icon-btn delete-btn"
+                            onclick="deleteNote(${note.id})">
+                            ❌
+                        </button>
+
+                    </div>
+
+                    <div class="note-title">${note.title}</div>
+
+                    <div class="note-content">${note.content}</div>
+
+                </div>
+            `;
+        });
+
+        notesContainer.innerHTML = notesHTML;
+
+    } catch (error) {
+
+        console.error(error);
+    }
+}
 // ADD / UPDATE NOTE
 async function addNote() {
 
