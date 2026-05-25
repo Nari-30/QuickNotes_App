@@ -273,3 +273,13 @@ button:hover {
     outline: none;
     box-sizing: border-box;
 }
+.note-time {
+
+    margin-top: 10px;
+
+    font-size: 13px;
+
+    color: #b8b8b8;
+
+    opacity: 0.9;
+}
