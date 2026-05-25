@@ -413,7 +413,6 @@ function editNote(id, title, content) {
     });
 }
 
-// DELETE NOTE
 async function deleteNote(id) {
 
     const confirmDelete =
@@ -423,17 +422,25 @@ async function deleteNote(id) {
 
     try {
 
-        await fetch(`${API_URL}/notes/${id}`, {
+        const response = await fetch(
 
-            method: "DELETE",
+            `${API_URL}/notes/${id}`,
 
-            headers: {
-                "Authorization":
-                    `Bearer ${localStorage.getItem("token")}`
+            {
+                method: "DELETE",
+
+                headers: {
+                    "Authorization":
+                        `Bearer ${localStorage.getItem("token")}`
+                }
             }
-        });
+        );
 
-        loadNotes();
+        const data = await response.text();
+
+        alert(data);
+
+        await loadNotes();
 
     } catch (error) {
 
