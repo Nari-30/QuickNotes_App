@@ -4,29 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QuickNotes Dashboard</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <div class="container">
 
     <div class="top-bar">
+
         <h1>QuickNotes</h1>
 
-        <button onclick="logout()">Logout</button>
+        <button onclick="logout()">
+            Logout
+        </button>
+
+    </div>
+
+    <!-- SEARCH BAR -->
+
+    <div class="search-box">
+
+        <input
+                type="text"
+                id="searchInput"
+                placeholder="Search notes..."
+                onkeyup="searchNotes()"
+        >
+
     </div>
 
     <div class="note-form">
 
-        <input type="text"
-               id="title"
-               placeholder="Note Title ( e.g., Grocery List)">
+        <input
+                type="text"
+                id="title"
+                placeholder="Note Title ( e.g., Grocery List)"
+        >
 
-        <textarea id="content"
-                  rows="5"
-                  placeholder="Note Content (e.g., Milk, Eggs, Bread)"></textarea>
+        <textarea
+                id="content"
+                rows="5"
+                placeholder="Note Content (e.g., Milk, Eggs, Bread)"
+        ></textarea>
 
-        <button id="mainBtn" onclick="addNote()">
+        <button
+                id="mainBtn"
+                onclick="addNote()"
+        >
             + Add Note
         </button>
 
