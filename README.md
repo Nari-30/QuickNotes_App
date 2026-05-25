@@ -307,5 +307,7 @@ The application is deployed using Railway cloud platform.
 ### Live URL: [QuickNotes App](https://quicknotesapp-production.up.railway.app)
 
 ## Author
+
 **Sadi Narendhra**
+
 Java Full Stack Developer | Spring Boot & Web Development Enthusiast
