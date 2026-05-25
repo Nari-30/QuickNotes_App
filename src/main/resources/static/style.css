@@ -255,18 +255,27 @@ button:hover {
 }
 
 .search-box {
-    margin-bottom: 20px;
+
+    width: 58%;
+
+    margin: 20px auto;
 }
 
 .search-box input {
 
     width: 100%;
 
-    padding: 12px;
+    padding: 18px;
 
-    border-radius: 10px;
+    border-radius: 12px;
 
-    border: 1px solid #ccc;
+    border: none;
 
-    font-size: 16px;
+    background: #123b73;
+
+    color: white;
+
+    font-size: 18px;
+
+    outline: none;
 }
