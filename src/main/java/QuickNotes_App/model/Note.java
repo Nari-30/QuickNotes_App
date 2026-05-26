@@ -3,6 +3,7 @@ package QuickNotes_App.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 @Entity
 @Table(name = "quicknotes_notes")
