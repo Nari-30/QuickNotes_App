@@ -1,7 +1,6 @@
 # QuickNotes App
 
 A secure and modern full-stack notes management application with JWT authentication, real-time note search, user-specific dashboards, and cloud deployment support. Built with Spring Boot and MySQL, featuring secure APIs, responsive UI, and timestamp-based note management.
-### Live: [QuickNotes App](https://quicknotesapp-production.up.railway.app)
 
 ### Stack:
 Java 17 · Spring Boot · Spring Security · JWT · MySQL · Hibernate/JPA · HTML · CSS · JavaScript · Railway
@@ -304,7 +303,6 @@ If localStorage is cleared:
 
 ## Deployment
 The application is deployed using Railway cloud platform.
-### Live URL: [QuickNotes App](https://quicknotesapp-production.up.railway.app)
 
 ## Author
 
